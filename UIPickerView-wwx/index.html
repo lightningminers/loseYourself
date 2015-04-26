@@ -1,0 +1,156 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="iphone-viewport" content="minimum-scale=1.0, maximum-scale=1.0, width=device-width" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<style type="text/css">
+		
+		#picker{
+			position: absolute;
+			z-index: 1000;
+			left: 0;
+			width: 100%;
+			font-family: helvetica, sans-serif;
+			text-align: left;
+			height: 215px;
+ 	 		overflow: hidden;
+		}
+		#picker ul li{
+			padding: 0 8px;
+  			height: 44px;
+  			overflow: hidden;
+  			font: bold 24px/44px Helvetica,sans-serif;
+		}
+		ul,li,div{
+			margin: 0px;
+			padding: 0px;
+		}
+
+		
+	</style>
+
+	<style type="text/css">
+
+		.UIPickerView-wrapper{
+			position: relative;
+			z-index: 999;
+			display: block;
+			height: 215px;
+			padding: 0 11px;
+			overflow: hidden;
+		}
+		.UIPickerView-deptch{
+			display: table-cell;
+  			height: 100%;
+  			padding-top: 86px;
+  			border-left: 2px solid #0d0e0f;
+  			background-color: #fcfcfc;
+		}
+		.UIPickerView-frame{
+			position: absolute;
+  			z-index: 1000;
+  			left: 0;
+  			right: 0;
+  			top:0;
+  			height: 183px;
+  			border-width: 16px;
+  			-webkit-border-image: url(sw-alpha.png) 16;
+		}
+	</style>
+	<script type="text/javascript" src="UIPickerView.js"></script>
+</head>
+<body>
+	<button id="open-picker">open picker</button>
+	<button id="_open-picker">_open picker</button>
+	<button id="close-picker">close picker</button>
+	<button id="select-picker">select picker</button>
+	<button id="render-picker">render picker</button>
+	<div id="picker"></div>
+	<script type="text/javascript">
+		var pickerOpen = document.getElementById('open-picker');
+		var _pickerOpen = document.getElementById('_open-picker');
+		var pickerClose = document.getElementById('close-picker');
+		var pickerSelect = document.getElementById('select-picker');
+		var pickerRender = document.getElementById('render-picker');
+		var up;
+		var data = [
+			{
+				"key":"index",
+				"value":"index"
+			},
+			{
+				"key":"iOS",
+				"value":"iOS"
+			},
+			{
+				"key":"i want",
+				"value":"i want"
+			},
+			{
+				"key":"back hometown",
+				"value":"back hometown"
+			},
+			{
+				"key":"github",
+				"value":"github"
+			},
+			{
+				"key":"icepy",
+				"value":"icepy"
+			},
+			{
+				"key":"wow",
+				"value":"wow"
+			}
+		];
+		
+		var keyUPP = {
+			valueChange:function(userInfo){
+				console.log(userInfo);
+			}
+		}
+
+		UPNotificationCenter.addObserver(keyUPP,'valueChange','UPK');
+
+		pickerOpen.addEventListener('click',function(e){
+			up = UIPickerView.createPickerView({
+				dataSource:data,
+				id:'picker',
+				constraintsId:'wower',
+				kUP:{
+					kUPCELLHEIGHT:44,
+					kUPFRICTION:0.003
+				},
+				valueChange:function(data){
+					UPNotificationCenter.postNotificationName('UPK',data);
+				}
+			});
+			
+		},false);
+
+		_pickerOpen.addEventListener('click',function(){
+			up.UPOpen();
+		},false);
+
+		pickerClose.addEventListener('click',function(){
+			up.UPClose();
+			
+		});
+		
+		pickerRender.addEventListener('click',function(){
+			up.UPRender([{
+				"key":"wow",
+				"value":"wow"
+			}]);
+		},false);
+
+		pickerSelect.addEventListener('click',function(){
+			up.UPSelectRowIndexPath(2).UPThen(function(indexPath,data){
+				console.log(indexPath);
+				console.log(data);
+			});
+		});
+
+	</script>
+</body>
+</html>

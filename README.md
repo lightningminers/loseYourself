@@ -54,6 +54,6 @@ UIPickerView的图片素材是在这里下载的--[http://cubiq.org/](http://cub
 
 ##效果图
 
-![](http://websources.qiniudn.com/img/UIPickerView.png)
+![UIPickerView Demo](http://websources.qiniudn.com/img/UIPickerView01.png)
 
 

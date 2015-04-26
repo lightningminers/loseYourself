@@ -1,0 +1,25 @@
+.UIPickerView-wrapper{
+	position: relative;
+	z-index: 999;
+	display: block;
+	height: 215px;
+	padding: 0 11px;
+	overflow: hidden;
+}
+.UIPickerView-deptch{
+	display: table-cell;
+		height: 100%;
+		padding-top: 86px;
+		border-left: 2px solid #0d0e0f;
+		background-color: #fcfcfc;
+}
+.UIPickerView-frame{
+	position: absolute;
+		z-index: 1000;
+		left: 0;
+		right: 0;
+		top:0;
+		height: 183px;
+		border-width: 16px;
+		-webkit-border-image: url(sw-alpha.png) 16;
+}

@@ -4,7 +4,10 @@
 	<meta name="viewport" id="iphone-viewport" content="minimum-scale=1.0, maximum-scale=1.0, width=device-width" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<style type="text/css">
-		
+		ul,li,div{
+			margin: 0px;
+			padding: 0px;
+		}
 		#picker{
 			position: absolute;
 			z-index: 1000;
@@ -21,42 +24,8 @@
   			overflow: hidden;
   			font: bold 24px/44px Helvetica,sans-serif;
 		}
-		ul,li,div{
-			margin: 0px;
-			padding: 0px;
-		}
-
-		
 	</style>
-
-	<style type="text/css">
-
-		.UIPickerView-wrapper{
-			position: relative;
-			z-index: 999;
-			display: block;
-			height: 215px;
-			padding: 0 11px;
-			overflow: hidden;
-		}
-		.UIPickerView-deptch{
-			display: table-cell;
-  			height: 100%;
-  			padding-top: 86px;
-  			border-left: 2px solid #0d0e0f;
-  			background-color: #fcfcfc;
-		}
-		.UIPickerView-frame{
-			position: absolute;
-  			z-index: 1000;
-  			left: 0;
-  			right: 0;
-  			top:0;
-  			height: 183px;
-  			border-width: 16px;
-  			-webkit-border-image: url(sw-alpha.png) 16;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="UIPickerView.css">
 	<script type="text/javascript" src="UIPickerView.js"></script>
 </head>
 <body>

@@ -19,8 +19,6 @@
 	}
 	var createElement = function(handler){
 		var constraintsId = this.options.constraintsId;
-		this.UPOpen();
-
 		//容器元素
 		var upWrapper = document.createElement('div');
 		upWrapper.id = constraintsId + 'wrapper';
@@ -72,7 +70,13 @@
 		if(!options.dataSource.length){
 			console.log('数据为空')
 			return false;
-		}
+		};
+
+		if (!options.valueChange || !typeof options.valueChange === 'function'){
+			console.log('必须提供valueChange事件');
+			return false;
+		};
+
 		this.options = options;
 		this.ele = [];
 		this.storageAnimationY = 0;
@@ -188,8 +192,6 @@
 			}
 			return true;
 		}
-
-		
 		var upBackWithinBoundaries = function(e){
 			e.target.removeEventListener('webkitTransitionEnd', this, false);
 			return false;
@@ -228,22 +230,6 @@
 		}
 		createElement.call(this,handlerEvent);
 	}
-
-	pickerview.prototype.UPClose = function(){
-		this.contains.style.webkitTransitionTimingFunction = 'ease-in';
-		this.contains.style.webkitTransitionDuration = '400ms';
-		this.contains.style.webkitTransform = 'translate3d(0, 0, 0)';
-	}
-
-	pickerview.prototype.UPOpen = function(){
-
-		this.contains.style.webkitTransitionTimingFunction = 'ease-out';
-		this.contains.style.webkitTransitionDuration = '400ms';
-		this.contains.style.webkitTransform = 'translate3d(0, -210px, 0)';
-		this.contains.style.top = window.innerHeight + window.pageYOffset + 'px';
-		this.contains.style.webkitTransitionProperty = '-webkit-transform';
-	}
-
 	pickerview.prototype.UPRender = function(dataSource){
 		if(Array.isArray(dataSource)){
 			this.options.dataSource = dataSource;
@@ -255,7 +241,6 @@
 			upSetPosition(0,this);
 		}
 	}
-
 	pickerview.prototype.UPSelectRowIndexPath = function(i){
 		if(i && i > 0 && i <= this.options.dataSource.length){
 			upSetPosition(-((i-1)*kUP.kUPCELLHEIGHT),this);
@@ -279,6 +264,44 @@
 		var up = new pickerview(options);
 		return up;
 	}
+
+	var CAAnimation = root.CAAnimation = function(options){
+		this.options = options;
+		if(!options.id) {
+			console.log('请指定动画的容器元素');
+		};
+		this.element = document.getElementById(options.id);
+		this.elementComputedStyle = window.getComputedStyle(this.element,null);
+		this.options.duration = options.duration || 400;
+		this.options.timingFunction = options.timingFunction || 'ease-out';
+		var self = this;
+		var handler = function(e){
+			if (e.type === 'scroll') {
+				self.element.style.top = window.innerHeight + window.pageYOffset + 'px';
+			};
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		window.addEventListener('scroll',handler, true);
+	}
+	CAAnimation.createAnimation = function(options){
+		var an = new CAAnimation(options);
+		return an;
+	}
+	CAAnimation.prototype.finish = function(){
+		this.element.style.webkitTransitionTimingFunction = this.options.timingFunction;
+		this.element.style.webkitTransitionDuration = this.options.duration + 'ms';
+		this.element.style.webkitTransform = 'translate3d(0, 0, 0)';
+	}
+
+	CAAnimation.prototype.start = function(){
+		this.element.style.webkitTransitionTimingFunction = this.options.timingFunction;
+		this.element.style.webkitTransitionDuration = this.options.duration + 'ms';
+		this.element.style.webkitTransform = 'translate3d(0, -' + this.elementComputedStyle.height+', 0)';
+		this.element.style.top = window.innerHeight + window.pageYOffset + 'px';
+		this.element.style.webkitTransitionProperty = '-webkit-transform';
+	}
+
 
 	//通知中心
 	var center = {};

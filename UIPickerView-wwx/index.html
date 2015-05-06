@@ -30,6 +30,59 @@
   			overflow: hidden;
   			font: bold 24px/44px Helvetica,sans-serif;
 		}
+		.picker-wraper{
+			width: 100%;
+		}
+		.qwe{
+			width: 120px;
+			float: left;
+			position: relative;
+			overflow: hidden;
+			height: 215px;
+		}
+		/*#pickerItem1{
+			position: absolute;
+			z-index: 1000;
+			left: 0;
+			width: 100%;
+			font-family: helvetica, sans-serif;
+			text-align: left;
+			height: 215px;
+ 	 		overflow: hidden;
+		}*/
+		#pickerItem1 ul li{
+			padding: 0 8px;
+  			height: 44px;
+  			overflow: hidden;
+  			font: bold 24px/44px Helvetica,sans-serif;
+		}
+		/*#pickerItem2{
+			position: absolute;
+			z-index: 1000;
+			left: 0;
+			width: 100%;
+			font-family: helvetica, sans-serif;
+			text-align: left;
+			height: 215px;
+ 	 		overflow: hidden;
+		}*/
+		#pickerItem2 ul li{
+			padding: 0 8px;
+  			height: 44px;
+  			overflow: hidden;
+  			font: bold 24px/44px Helvetica,sans-serif;
+		}
+		.picker-wraper
+		{
+			position: absolute;
+			z-index: 1000;
+			left: 0;
+			width: 100%;
+			font-family: helvetica, sans-serif;
+			text-align: left;
+			height: 215px;
+ 	 		overflow: hidden;
+		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="UIPickerView.css">
 	<script type="text/javascript" src="UIPickerView.js"></script>
@@ -41,13 +94,18 @@
 	<button id="select-picker">select picker</button>
 	<button id="render-picker">render picker</button>
 	<div id="picker"></div>
+	<div class="picker-wraper" id="picker-wraper">
+		<div class="qwe"><div id="pickerItem1"></div></div>
+		<div class="qwe"><div id="pickerItem2"></div></div>
+	</div>
 	<script type="text/javascript">
 		var pickerOpen = document.getElementById('open-picker');
 		var _pickerOpen = document.getElementById('_open-picker');
 		var pickerClose = document.getElementById('close-picker');
 		var pickerSelect = document.getElementById('select-picker');
 		var pickerRender = document.getElementById('render-picker');
-		var up;
+		var up,
+			picker2;
 		var data = [
 			{
 				"key":"index",
@@ -90,7 +148,7 @@
 		pickerOpen.addEventListener('click',function(e){
 			up = UIPickerView.createPickerView({
 				dataSource:data,
-				id:'picker',
+				id:'pickerItem1',
 				constraintsId:'wower',
 				kUP:{
 					kUPCELLHEIGHT:44,
@@ -100,16 +158,31 @@
 					UPNotificationCenter.postNotificationName('UPK',data);
 				}
 			});
+
+			picker2 = UIPickerView.createPickerView({
+				dataSource:data,
+				id:'pickerItem2',
+				constraintsId:'wower2',
+				kUP:{
+					kUPCELLHEIGHT:44,
+					kUPFRICTION:0.003
+				},
+				valueChange:function(data){
+					UPNotificationCenter.postNotificationName('UPK',data);
+				}
+			});
 			
+			animd = CAAnimation.createAnimation({id:'picker-wraper'});
+			animd.start();
+
 		},false);
 
 		_pickerOpen.addEventListener('click',function(){
-			up.UPOpen();
+			animd.start();
 		},false);
 
 		pickerClose.addEventListener('click',function(){
-			up.UPClose();
-			
+			animd.finish();
 		});
 		
 		pickerRender.addEventListener('click',function(){

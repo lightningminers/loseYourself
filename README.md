@@ -30,15 +30,24 @@ dataSource数据源的结构，渲染DOM结构依赖key，value键，具体的�
 
 UIPickerView提供了五个方法来操作
 
->UPClose() 关闭一个UIPickerView
-
 >UPRender() 重新渲染内容区域部分
 
 >UPSelectRowIndexPath() 自定义选择某一行
 
 >UPThen() 选择了一行之后可以在这个回调中再做某些事情
 
->UPOpen() 打开一个存在的UIPickerView
+##动画驱动
+
+	animd = CAAnimation.createAnimation({id:'picker-wraper'});
+	animd.start(); //开始
+	animd.finish(); //完成
+
+使用CAAnimation来创建一个动画，UIPickerView可以实现多个在一个容器中，显示的动画执行可以在CAAnimation中执行。
+
+> id 指定需要动画的容器id
+
+> WebKitanimation的动画参数都可支持
+
 
 ##注意事项
 

@@ -6,12 +6,25 @@
 		kUPFRICTION: 0.003,
 		kUPCONFINE: 16 //中心point
 	}
+	var fontSizeNumber = function(v,ulwidth){
+		var minFont = 1;
+		var maxFont = 16;
+		var len = v.value.length;
+		var fontSize = maxFont;
+		if(len*maxFont > ulwidth){
+			while(true){
+				maxFont--;
+				if(len*maxFont < ulwidth){
+					fontSize = Math.round(maxFont);
+					break;
+				}
+			}
+		}
+		return fontSize;
+	}
 	var upScrollTo = function(dest,self,runtime){
 		self.upContains.style.webkitTransitionDuration = runtime ? runtime : '100ms';
 		upSetPosition(dest ? dest : 0,self);
-		if (self.upContains.slotYPosition > 0 || self.upContains.slotYPosition < self.upContains.slotMaxScroll) {
-			self.upContains.addEventListener('webkitTransitionEnd',handlerEvent, false);
-		}
 	}
 	var upSetPosition = function(pos,self){
 		self.upContains.slotYPosition = pos;
@@ -35,6 +48,9 @@
 		pickerFrame.id = constraintsId + 'Frame';
 		pickerFrame.className = 'UIPickerView-frame';
 
+		var emptyDiv = document.createElement('div');
+		emptyDiv.className = 'UIPickerView-empty';
+		pickerFrame.appendChild(emptyDiv);
 		this.contains.appendChild(upWrapper);
 		this.contains.appendChild(pickerFrame);
 
@@ -52,16 +68,17 @@
 		upUl.slotPosition = 0;
 		upUl.slotYPosition = 0;
 		upUl.slotWidth = 0;
-		
-		var out = '';
-		this.options.dataSource.forEach(function(v){
-			out += '<li>'+v.value+'</li>'
-		});
-		upUl.innerHTML = out;
-
 		this.upDepth.appendChild(upUl);
 		//真实列表UL对象
 		this.upContains = document.getElementById(constraintsId + 'contains');
+		var ulw = this.upContainsWidth = window.getComputedStyle(this.contains,null).width;
+		ulw = ulw.split('px')[0] - 16;
+		var out = '';
+		this.options.dataSource.forEach(function(v){
+			var fontsize = fontSizeNumber(v,ulw);
+			out += '<li style="font-size:'+fontsize+'px;">'+v.value+'</li>'
+		});
+		upUl.innerHTML = out;
 		this.upFrame.addEventListener('touchstart',handler,false);
 		window.addEventListener('scroll',handler, true);
 	}
@@ -99,7 +116,6 @@
 		var self = this;
 		var upScrollStart = function(e){
 			// console.log('开始移动');
-			self.upContains.removeEventListener('webkitTransitionEnd',handlerEvent,false);
 			self.upContains.style.webkitTransitionDuration = '0';
 			var theTransform = window.getComputedStyle(self.upContains).webkitTransform;
 			if(theTransform){
@@ -136,6 +152,13 @@
 			var _index = dataSource.length;
 			//下标数
 			var len = _index - 1;
+			if (!self.upContains.slotYPosition) {
+				return false;
+			}
+			if (self.upContains.slotYPosition == len * (-kUP.kUPCELLHEIGHT)) {
+				return false;
+			}
+
 			//滚动方向超出top边界时
 			if(self.upContains.slotYPosition >= 0){
 				upScrollTo(0,self);
@@ -192,10 +215,6 @@
 			}
 			return true;
 		}
-		var upBackWithinBoundaries = function(e){
-			e.target.removeEventListener('webkitTransitionEnd', this, false);
-			return false;
-		}
 		var upLockEvent = function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -216,13 +235,6 @@
 				if(e.currentTarget.id === self.options.constraintsId + 'Frame'){
 					upScrollEnd(e);	
 				}
-			}else if(e.type === 'webkitTransitionEnd'){
-				if (e.target.id == self.options.constraintsId + 'wrapper') {
-					//this.destroy();
-				} else {
-					upBackWithinBoundaries(e);
-				}
-				
 			}else if (e.type == 'scroll') {
 				upOnScroll(e);
 			}
@@ -234,8 +246,11 @@
 		if(Array.isArray(dataSource)){
 			this.options.dataSource = dataSource;
 			var html = '';
+			var ulw = this.upContainsWidth;
+			ulw = ulw.split('px')[0] - 16;
 			dataSource.forEach(function(v){
-				html += '<li>'+v.value+'</li>';
+				var fontsize = fontSizeNumber(v,ulw);
+				html += '<li style="font-size:'+fontsize+'px;">'+v.value+'</li>';
 			});
 			this.upContains.innerHTML = html;
 			upSetPosition(0,this);
@@ -256,8 +271,7 @@
 
 	pickerview.prototype.UPThen = function(func){
 		var selectRowData = this.options.dataSource[this.indexPath.row];
-		this.options.valueChange(selectRowData);
-		func(this.indexPath,selectRowData);
+		(func && typeof func === 'function' && func(this.indexPath,selectRowData)) || this.options.valueChange(selectRowData) ;
 	}
 
 	root.UIPickerView.createPickerView = function(options,callback){
@@ -270,38 +284,60 @@
 		if(!options.id) {
 			console.log('请指定动画的容器元素');
 		};
+		this.isShowed = false;
 		this.element = document.getElementById(options.id);
 		this.elementComputedStyle = window.getComputedStyle(this.element,null);
 		this.options.duration = options.duration || 400;
 		this.options.timingFunction = options.timingFunction || 'ease-out';
+		this.options.keyPath = options.keyPath || 'slateY';
 		var self = this;
-		var handler = function(e){
+		this.handler = function(e){
 			if (e.type === 'scroll') {
 				self.element.style.top = window.innerHeight + window.pageYOffset + 'px';
-			};
+			}else if(e.type === 'webkitTransitionEnd'){
+				if(!self.isShowed){
+					self.element.classList.add('control');
+				}
+			}
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		window.addEventListener('scroll',handler, true);
+		window.addEventListener('scroll',this.handler, false);
 	}
 	CAAnimation.createAnimation = function(options){
 		var an = new CAAnimation(options);
 		return an;
 	}
 	CAAnimation.prototype.finish = function(){
+		var self = this;
+		this.isShowed = false;
+		this.element.addEventListener('webkitTransitionEnd',this.handler,false);
 		this.element.style.webkitTransitionTimingFunction = this.options.timingFunction;
 		this.element.style.webkitTransitionDuration = this.options.duration + 'ms';
-		this.element.style.webkitTransform = 'translate3d(0, 0, 0)';
+		switch(this.options.keyPath){
+			case 'slateY':
+				this.element.style.webkitTransform = 'translate3d(0, 0, 0)';
+				break;
+		}
 	}
-
 	CAAnimation.prototype.start = function(){
+		this.isShowed = true;
+		this.element.classList.remove('control');
+		this.element.removeEventListener('webkitTransitionEnd',this.handler,false);
 		this.element.style.webkitTransitionTimingFunction = this.options.timingFunction;
 		this.element.style.webkitTransitionDuration = this.options.duration + 'ms';
-		this.element.style.webkitTransform = 'translate3d(0, -' + this.elementComputedStyle.height+', 0)';
-		this.element.style.top = window.innerHeight + window.pageYOffset + 'px';
-		this.element.style.webkitTransitionProperty = '-webkit-transform';
+		switch(this.options.keyPath){
+			case 'slateY':
+				this.element.style.webkitTransform = 'translate3d(0, -' + this.elementComputedStyle.height+', 0)';
+				this.element.style.top = window.innerHeight + window.pageYOffset + 'px';
+				this.element.style.webkitTransitionProperty = '-webkit-transform';
+				break;
+		}
 	}
-
+	CAAnimation.prototype.removeEvent = function(){
+		this.element.removeEventListener('webkitTransitionEnd',this.handler,false);
+		window.removeEventListener('scroll',this.handler, false);
+	}
 
 	//通知中心
 	var center = {};

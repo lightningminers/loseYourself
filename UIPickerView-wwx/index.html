@@ -28,13 +28,14 @@
 			padding: 0 8px;
   			height: 44px;
   			overflow: hidden;
-  			font: bold 24px/44px Helvetica,sans-serif;
+  			font: 24px/44px Helvetica,sans-serif;
 		}
 		.picker-wraper{
 			width: 100%;
+
 		}
 		.qwe{
-			width: 120px;
+			width: 40%;
 			float: left;
 			position: relative;
 			overflow: hidden;
@@ -54,7 +55,7 @@
 			padding: 0 8px;
   			height: 44px;
   			overflow: hidden;
-  			font: bold 24px/44px Helvetica,sans-serif;
+  			font: 24px/44px Helvetica,sans-serif;
 		}
 		/*#pickerItem2{
 			position: absolute;
@@ -70,7 +71,7 @@
 			padding: 0 8px;
   			height: 44px;
   			overflow: hidden;
-  			font: bold 24px/44px Helvetica,sans-serif;
+  			font: 24px/44px Helvetica,sans-serif;
 		}
 		.picker-wraper
 		{
@@ -83,18 +84,36 @@
 			height: 215px;
  	 		overflow: hidden;
 		}
+		.color{
+			width: 100%;
+			height: 30px;
+			background: #434;
+		}
+
+		p{
+			width: 100%;
+			height: 320px;
+		}
+		#animation{
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			overflow: hidden;
+			background-color: red;
+		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="UIPickerView.css">
 	<script type="text/javascript" src="UIPickerView.js"></script>
 </head>
 <body>
+	<div class="d"></div>
 	<button id="open-picker">open picker</button>
 	<button id="_open-picker">_open picker</button>
 	<button id="close-picker">close picker</button>
 	<button id="select-picker">select picker</button>
 	<button id="render-picker">render picker</button>
-	<div id="picker"></div>
 	<div class="picker-wraper" id="picker-wraper">
+<!--<div class="color"></div>-->
 		<div class="qwe"><div id="pickerItem1"></div></div>
 		<div class="qwe"><div id="pickerItem2"></div></div>
 	</div>
@@ -155,6 +174,7 @@
 					kUPFRICTION:0.003
 				},
 				valueChange:function(data){
+					console.log(data);
 					UPNotificationCenter.postNotificationName('UPK',data);
 				}
 			});
@@ -174,7 +194,7 @@
 			
 			animd = CAAnimation.createAnimation({id:'picker-wraper'});
 			animd.start();
-
+			console.log(animd);
 		},false);
 
 		_pickerOpen.addEventListener('click',function(){
@@ -183,6 +203,7 @@
 
 		pickerClose.addEventListener('click',function(){
 			animd.finish();
+			console.log(animd);
 		});
 		
 		pickerRender.addEventListener('click',function(){
@@ -198,7 +219,17 @@
 				console.log(data);
 			});
 		});
+	</script>
 
+	<script type="text/javascript">
+	// 	//animation
+	// 	var ca = CAAnimation.createAnimation(
+	// 		{
+	// 			'id':'animation',
+	// 			''
+	// 		}
+	// 	);
+	// 	ca.start();
 	</script>
 </body>
 </html>

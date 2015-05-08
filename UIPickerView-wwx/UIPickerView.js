@@ -8,7 +8,7 @@
 	}
 	var fontSizeNumber = function(v,ulwidth){
 		var minFont = 1;
-		var maxFont = 16;
+		var maxFont = 14;
 		var len = v.value.length;
 		var fontSize = maxFont;
 		if(len*maxFont > ulwidth){
@@ -69,18 +69,12 @@
 		upUl.slotYPosition = 0;
 		upUl.slotWidth = 0;
 		this.upDepth.appendChild(upUl);
+
 		//真实列表UL对象
 		this.upContains = document.getElementById(constraintsId + 'contains');
-		var ulw = this.upContainsWidth = window.getComputedStyle(this.contains,null).width;
-		ulw = ulw.split('px')[0] - 16;
-		var out = '';
-		this.options.dataSource.forEach(function(v){
-			var fontsize = fontSizeNumber(v,ulw);
-			out += '<li style="font-size:'+fontsize+'px;">'+v.value+'</li>'
-		});
-		upUl.innerHTML = out;
+		this.UPRender(this.options.dataSource);
 		this.upFrame.addEventListener('touchstart',handler,false);
-		window.addEventListener('scroll',handler, true);
+
 	}
 
 	var pickerview = root.UIPickerView = function(options){
@@ -219,9 +213,6 @@
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		var upOnScroll = function(e){
-			self.contains.style.top = window.innerHeight + window.pageYOffset + 'px';
-		}
 		var handlerEvent = function(e){
 			if(e.type === 'touchstart'){
 				if(e.currentTarget.id === self.options.constraintsId + 'Frame'){
@@ -235,8 +226,6 @@
 				if(e.currentTarget.id === self.options.constraintsId + 'Frame'){
 					upScrollEnd(e);	
 				}
-			}else if (e.type == 'scroll') {
-				upOnScroll(e);
 			}
 			upLockEvent(e);
 		}
@@ -246,7 +235,7 @@
 		if(Array.isArray(dataSource)){
 			this.options.dataSource = dataSource;
 			var html = '';
-			var ulw = this.upContainsWidth;
+			var ulw = window.getComputedStyle(this.contains,null).width;
 			ulw = ulw.split('px')[0] - 16;
 			dataSource.forEach(function(v){
 				var fontsize = fontSizeNumber(v,ulw);
@@ -271,7 +260,11 @@
 
 	pickerview.prototype.UPThen = function(func){
 		var selectRowData = this.options.dataSource[this.indexPath.row];
-		(func && typeof func === 'function' && func(this.indexPath,selectRowData)) || this.options.valueChange(selectRowData) ;
+		if (func && typeof func === 'function'){
+			func(this.indexPath,selectRowData);
+		}else{
+			this.options.valueChange(selectRowData);
+		}
 	}
 
 	root.UIPickerView.createPickerView = function(options,callback){
@@ -290,10 +283,13 @@
 		this.options.duration = options.duration || 400;
 		this.options.timingFunction = options.timingFunction || 'ease-out';
 		this.options.keyPath = options.keyPath || 'slateY';
+		this.element.classList.add('control');
 		var self = this;
 		this.handler = function(e){
+			console.log(e.type)
 			if (e.type === 'scroll') {
-				self.element.style.top = window.innerHeight + window.pageYOffset + 'px';
+				console.log('12');
+				// self.element.style.top = window.innerHeight + window.pageYOffset + 'px';
 			}else if(e.type === 'webkitTransitionEnd'){
 				if(!self.isShowed){
 					self.element.classList.add('control');

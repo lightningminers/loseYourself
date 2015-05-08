@@ -13,7 +13,7 @@
 			margin: 0px;
 			padding: 0px;
 		}
-		/*#picker{
+		#picker{
 			position: absolute;
 			z-index: 1000;
 			left: 0;
@@ -38,8 +38,8 @@
 			position: relative;
 			overflow: hidden;
 			height: 215px;
-		}*/
-		/*#pickerItem1{
+		}
+		#pickerItem1{
 			position: absolute;
 			z-index: 1000;
 			left: 0;
@@ -48,14 +48,14 @@
 			text-align: left;
 			height: 215px;
  	 		overflow: hidden;
-		}*/
-		/*#pickerItem1 ul li{
+		}
+		#pickerItem1 ul li{
 			padding: 0 8px;
   			height: 44px;
   			overflow: hidden;
   			font: 24px/44px Helvetica,sans-serif;
-		}*/
-		/*#pickerItem2{
+		}
+		#pickerItem2{
 			position: absolute;
 			z-index: 1000;
 			left: 0;
@@ -64,8 +64,8 @@
 			text-align: left;
 			height: 215px;
  	 		overflow: hidden;
-		}*/
-		/*#pickerItem2 ul li{
+		}
+		#pickerItem2 ul li{
 			padding: 0 8px;
   			height: 44px;
   			overflow: hidden;
@@ -97,204 +97,23 @@
 			height: 100px;
 			overflow: hidden;
 			background-color: red;
-		}*/
-	</style>
-	<style type="text/css">
-	.region-picker-wrapper {
-		height: 271px;
-			position: absolute;
-			background-color: red;
-			width: 100%;
-	}
-	.region-picker-wrapper .body {
-	  	height: 215px;
-	  	width: 100%;
-	  	position: absolute;
-	  	overflow: hidden;
-	  	background-color: white;
-	}
-	.region-picker-wrapper .body .select-zone {
-		  pointer-events: none;
-		  position: absolute;
-		  width: 100%;
-		  display: block;
-		  z-index: 1100;
-		  background: white;
-		  opacity: 0.7;
-	}
-	.region-picker-wrapper .body .select-zone.top {
-	  	height: 85px;
-	}
-	.address-edit-panel .top {
-		  height: 50px;
-		  border-top: 1px solid rgba(105, 94, 107, 0.2);
-		  color: #4C4440;
-		  font-size: 13px;
-	}
-
-	.region-picker-wrapper .body .select-zone.middle {
-		  background: none;
-		  background-color: none;
-		  top: 85px;
-		  border-top: solid #d3d3d3 1px;
-		  border-bottom: solid #d3d3d3 1px;
-		  height: 26px;
-	}
-
-	.region-picker-wrapper .body .select-zone.bottom {
-	  height: 103px;
-	  top: 111px;
-	}
-	.region-picker-wrapper .body .region-picker {
-	  position: relative;
-	  width: 150px;
-	  float: left;
-	  height: 215px;
-	  overflow: hidden;
-	}
-
-  	.region-picker-wrapper .body .region-picker .UIPickerView-wrapper {
-		position: relative;
-		z-index: 999;
-		height: 215px;
-		padding: 0 11px;
-		overflow: hidden;
-	}
-
-	.region-picker-wrapper .body .region-picker .UIPickerView-wrapper .UIPickerView-deptch {
-	  	display: table-cell;
-	  	height: 100%;
-	  	padding-top: 86px;
-	  	background-color: #fcfcfc;
-	}
-
-	.region-picker-wrapper .body .region-picker li {
-	  	padding: 0 8px;
-	  	height: 26px;
-	  	overflow: hidden;
-	  	font-family: Helvetica,sans-serif;
-	}
-	#provincePicker{
-		width: 150px;
-	}
-	#cityPicker{
-		width: 150px;
-	}
+		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="UIPickerView.css">
 	<script type="text/javascript" src="UIPickerView.js"></script>
 </head>
 <body>
 	<div class="d"></div>
-	<button id="create-picker">create picker</button>
 	<button id="open-picker">open picker</button>
+	<button id="_open-picker">_open picker</button>
 	<button id="close-picker">close picker</button>
 	<button id="select-picker">select picker</button>
 	<button id="render-picker">render picker</button>
-	<!-- <div class="picker-wraper" id="picker-wraper">
+	<div class="picker-wraper" id="picker-wraper">
 		<div class="qwe"><div id="pickerItem1"></div></div>
 		<div class="qwe"><div id="pickerItem2"></div></div>
-	</div> -->
-	<div class="region-picker-wrapper control" id="region-picker">
-	    <div class="bar bar-header">
-	        <button class="button button-clear" ng-click="closeRegion()">取消</button>
-	        <div class="h3 title">请选择地区</div>
-	        <button class="button button-clear button-positive" ng-click="doneRegion()">确定</button>
-	    </div>
-	    <div class="body">
-	        <div class="select-zone top"></div>
-	        <div class="select-zone middle"></div>
-	        <div class="select-zone bottom"></div>
-	        <div class="region-picker" >
-	          	<div id="provincePicker"></div>
-	        </div>
-	        <div class="region-picker">
-	          	<div id="cityPicker"></div>
-	        </div>
-	        <div class="region-picker">
-	          	<div id="areaPicker"></div>
-	        </div>
-	    </div>
-    </div>
-
-    <script type="text/javascript">
-    	var pickerCreate = document.getElementById('create-picker');
-		var pickerOpen = document.getElementById('open-picker');
-		var pickerClose = document.getElementById('close-picker');
-		var pickerSelect = document.getElementById('select-picker');
-		var pickerRender = document.getElementById('render-picker');
-		var up,up1,up2,animaed;
-		var data = [
-			{
-				"key":"index",
-				"value":"index"
-			},
-			{
-				"key":"iOS",
-				"value":"iOS"
-			},
-			{
-				"key":"i want",
-				"value":"i want"
-			},
-			{
-				"key":"back hometown",
-				"value":"back hometown"
-			},
-			{
-				"key":"github",
-				"value":"github"
-			},
-			{
-				"key":"icepy",
-				"value":"icepy"
-			},
-			{
-				"key":"wow",
-				"value":"wow"
-			}
-		];
-		pickerCreate.addEventListener('click',function(){
-			up = UIPickerView.createPickerView({
-				dataSource:data,
-				id:'provincePicker',
-				constraintsId:'wower',
-				kUP:{
-					kUPCELLHEIGHT:26,
-					kUPFRICTION:0.003
-				},
-				valueChange:function(data){
-					console.log(data);
-				}
-			});
-			up1 = UIPickerView.createPickerView({
-				dataSource:data,
-				id:'cityPicker',
-				constraintsId:'wower1',
-				kUP:{
-					kUPCELLHEIGHT:26,
-					kUPFRICTION:0.003
-				},
-				valueChange:function(data){
-					console.log(data);
-				}
-			});
-			animaed = CAAnimation.createAnimation({id:'region-picker'});
-			animaed.start();
-			console.log(animaed);
-		});
-
-		pickerClose.addEventListener('click',function(){
-			animaed.finish();
-		});
-
-		pickerOpen.addEventListener('click',function(){
-			animaed.start();
-		});
-    </script>
-
-
-	<!--<script type="text/javascript">
+	</div>
+	<script type="text/javascript">
 		var pickerOpen = document.getElementById('open-picker');
 		var _pickerOpen = document.getElementById('_open-picker');
 		var pickerClose = document.getElementById('close-picker');
@@ -338,9 +157,7 @@
 				console.log(userInfo);
 			}
 		}
-
 		UPNotificationCenter.addObserver(keyUPP,'valueChange','UPK');
-
 		pickerOpen.addEventListener('click',function(e){
 			up = UIPickerView.createPickerView({
 				dataSource:data,
@@ -355,7 +172,6 @@
 					UPNotificationCenter.postNotificationName('UPK',data);
 				}
 			});
-
 			picker2 = UIPickerView.createPickerView({
 				dataSource:data,
 				id:'pickerItem2',
@@ -373,11 +189,9 @@
 			animd.start();
 			console.log(animd);
 		},false);
-
 		_pickerOpen.addEventListener('click',function(){
 			animd.start();
 		},false);
-
 		pickerClose.addEventListener('click',function(){
 			animd.finish();
 			console.log(animd);
@@ -389,13 +203,23 @@
 				"value":"wow"
 			}]);
 		},false);
-
 		pickerSelect.addEventListener('click',function(){
 			up.UPSelectRowIndexPath(2).UPThen(function(indexPath,data){
 				console.log(indexPath);
 				console.log(data);
 			});
 		});
-	</script>-->
+	</script>
+
+	<script type="text/javascript">
+	// 	//animation
+	// 	var ca = CAAnimation.createAnimation(
+	// 		{
+	// 			'id':'animation',
+	// 			''
+	// 		}
+	// 	);
+	// 	ca.start();
+	</script>
 </body>
 </html>

@@ -236,12 +236,13 @@
 			this.options.dataSource = dataSource;
 			var html = '';
 			var ulw = window.getComputedStyle(this.contains,null).width;
-			ulw = ulw.split('px')[0] - 16;
+			ulw = ulw.split('px')[0];
 			dataSource.forEach(function(v){
 				var fontsize = fontSizeNumber(v,ulw);
-				html += '<li style="font-size:'+fontsize+'px;">'+v.value+'</li>';
+				html += '<li style="font-size:'+fontsize+'px">'+v.value+'</li>';
 			});
 			this.upContains.innerHTML = html;
+			console.log(ulw);
 			upSetPosition(0,this);
 		}
 	}
@@ -283,13 +284,11 @@
 		this.options.duration = options.duration || 400;
 		this.options.timingFunction = options.timingFunction || 'ease-out';
 		this.options.keyPath = options.keyPath || 'slateY';
-		this.element.classList.add('control');
+		this.element.classList.add('visibility-control');
 		var self = this;
-		this.handler = function(e){
-			console.log(e.type)
+		this.handler = function(e){		
 			if (e.type === 'scroll') {
 				console.log('12');
-				// self.element.style.top = window.innerHeight + window.pageYOffset + 'px';
 			}else if(e.type === 'webkitTransitionEnd'){
 				if(!self.isShowed){
 					self.element.classList.add('control');
@@ -319,6 +318,7 @@
 	CAAnimation.prototype.start = function(){
 		this.isShowed = true;
 		this.element.classList.remove('control');
+		this.element.classList.remove('visibility-control');
 		this.element.removeEventListener('webkitTransitionEnd',this.handler,false);
 		this.element.style.webkitTransitionTimingFunction = this.options.timingFunction;
 		this.element.style.webkitTransitionDuration = this.options.duration + 'ms';

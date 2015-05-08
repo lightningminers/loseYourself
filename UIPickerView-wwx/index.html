@@ -13,194 +13,224 @@
 			margin: 0px;
 			padding: 0px;
 		}
-		/*#picker{
-			position: absolute;
-			z-index: 1000;
-			left: 0;
-			width: 100%;
-			font-family: helvetica, sans-serif;
-			text-align: left;
-			height: 215px;
- 	 		overflow: hidden;
-		}
-		#picker ul li{
-			padding: 0 8px;
-  			height: 44px;
-  			overflow: hidden;
-  			font: 24px/44px Helvetica,sans-serif;
-		}
-		.picker-wraper{
-			width: 100%;
-		}
-		.qwe{
-			width: 40%;
-			float: left;
-			position: relative;
-			overflow: hidden;
-			height: 215px;
-		}*/
-		/*#pickerItem1{
-			position: absolute;
-			z-index: 1000;
-			left: 0;
-			width: 100%;
-			font-family: helvetica, sans-serif;
-			text-align: left;
-			height: 215px;
- 	 		overflow: hidden;
-		}*/
-		/*#pickerItem1 ul li{
-			padding: 0 8px;
-  			height: 44px;
-  			overflow: hidden;
-  			font: 24px/44px Helvetica,sans-serif;
-		}*/
-		/*#pickerItem2{
-			position: absolute;
-			z-index: 1000;
-			left: 0;
-			width: 100%;
-			font-family: helvetica, sans-serif;
-			text-align: left;
-			height: 215px;
- 	 		overflow: hidden;
-		}*/
-		/*#pickerItem2 ul li{
-			padding: 0 8px;
-  			height: 44px;
-  			overflow: hidden;
-  			font: 24px/44px Helvetica,sans-serif;
-		}
-		.picker-wraper
-		{
-			position: absolute;
-			z-index: 1000;
-			left: 0;
-			width: 100%;
-			font-family: helvetica, sans-serif;
-			text-align: left;
-			height: 215px;
- 	 		overflow: hidden;
-		}
-		.color{
-			width: 100%;
-			height: 30px;
-			background: #434;
-		}
-		p{
-			width: 100%;
-			height: 320px;
-		}
-		#animation{
-			position: absolute;
-			width: 100px;
-			height: 100px;
-			overflow: hidden;
-			background-color: red;
-		}*/
 	</style>
 	<style type="text/css">
-	.region-picker-wrapper {
-		height: 271px;
-			position: absolute;
-			background-color: red;
-			width: 100%;
-	}
-	.region-picker-wrapper .body {
-	  	height: 215px;
-	  	width: 100%;
-	  	position: absolute;
-	  	overflow: hidden;
-	  	background-color: white;
-	}
-	.region-picker-wrapper .body .select-zone {
-		  pointer-events: none;
+		.region-picker-wrapper {
+		  	height: 259px;
+		  	position: absolute;
+		  	background-color: white;
+		  	width: 100%;
+		  	/*margin-top: -44px;*/
+		}
+		.region-picker-wrapper .header {
+		  	height: 44px;
+		}
+		.region-picker-wrapper .bar-header {
+		  	border: none !important;
+		  	background-image: none;
+		  	background: #fff;
+		  	background-color: #F9F9F9;
+		}
+		.region-picker-wrapper .body {
+		  	display: -webkit-box;
+		  	display: -webkit-flex;
+		  	display: -moz-flex;
+		  	display: -ms-flexbox;
+		  	display: flex;
+		  	height: 215px;
+		  	width: 100%;
+		  	position: absolute;
+		  	overflow: hidden;
+		  	background-color: white;
+		}
+		.region-picker-wrapper .body .select-zone {
+		  	pointer-events: none;
+		  	position: absolute;
+		  	width: 100%;
+		  	display: block;
+		  	z-index: 1100;
+		  	background: white;
+		  	opacity: 0.7;
+		}
+		.region-picker-wrapper .body .select-zone.top {
+  			height: 85px;	
+		}
+		.region-picker-wrapper .body .select-zone.middle {
+		  	background: none;
+		  	background-color: none;
+		  	top: 85px;
+		  	border-top: solid #d3d3d3 1px;
+		  	border-bottom: solid #d3d3d3 1px;
+		  	height: 26px;
+		}
+		.region-picker-wrapper .body .select-zone.bottom {
+  			height: 107px;
+  			top: 111px;
+		}
+		.region-picker-wrapper .body .region-picker {
+		  	position: relative;
+		  	-webkit-box-flex: 1;
+		  	-webkit-flex: 1 1 0;
+		  	-moz-box-flex: 1;
+		  	-moz-flex: 1 1 0;
+		  	-ms-flex: 1 1 0;
+		  	flex: 1 1 0;
+		  	float: left;
+		  	height: 215px;
+		  	overflow: hidden;
+		}
+		.region-picker-wrapper .body .region-picker li {
+  			height: 22px;
+		  	overflow: hidden;
+		  	background-color: white;
+		  	line-height: 22px;
+		  	font-size: 14px;
+		  	text-align: center;
+		}
+		.region-picker-wrapper .bar-header .button, .region-picker-wrapper .bar-header .title {
+		  	font-size: 14px;
+		}
+		.bar .button.button-clear {
+		  	color: #4c4440;
+		}
+		.bar .button.button-clear {
+		  	padding-right: 2px;
+		  	padding-left: 2px;
+		  	font-weight: 300;
+		  	font-size: 17px;
+		}
+		.bar .button {
+		  	min-height: 30px;
+		  	line-height: 34px;
+		}
+		.button-clear.button-clear {
+		  	border-color: transparent;
+		  	background: none;
+		  	box-shadow: none;
+		  	color: #b2b2b2;
+		}
+		.bar .button {
+		  	z-index: 1;
+		  	padding: 0 8px;
+		  	min-width: initial;
+		  	min-height: 31px;
+		  	font-weight: 400;
+		  	font-size: 13px;
+		  	line-height: 32px;
+		}
+		.button-clear {
+		  	-webkit-transition: opacity .1s;
+		  	transition: opacity .1s;
+		  	padding: 0 6px;
+		  	max-height: 42px;
+		  	border-color: transparent;
+		  	background: none;
+		  	box-shadow: none;
+		}
+		.button {
+		  	border-color: #b2b2b2;
+		  	background-color: #f8f8f8;
+		  	color: #444;
+		  	position: relative;
+		  	display: inline-block;
+		  	margin: 0;
+		  	padding: 0 12px;
+		  	min-width: 52px;
+		  	min-height: 47px;
+		  	border-width: 1px;
+		  	border-style: solid;
+		  	border-radius: 2px;
+		  	vertical-align: top;
+		  	text-align: center;
+		  	text-overflow: ellipsis;
+		  	font-size: 16px;
+		  	line-height: 42px;
+		  	cursor: pointer;
+		}
+		header .title {
+		  	font-size: 14px;
+		}
+		.bar-header .title {
+		  	font-size: 19px;
+		  	color: #4c4440;
+		}
+		.bar .title {
+		  	position: absolute;
+		  	top: 0;
+		  	right: 0;
+		  	left: 0;
+		  	z-index: 0;
+		  	overflow: hidden;
+		  	margin: 0 10px;
+		  	min-width: 30px;
+		  	height: 43px;
+		  	text-align: center;
+		  	text-overflow: ellipsis;
+		  	white-space: nowrap;
+		  	font-size: 17px;
+		  	font-weight: 500;
+		  	line-height: 44px;
+		}
+		.bar .title + .button:last-child, .bar > .button + .button:last-child, .bar > .button.pull-right, .bar .buttons.pull-right, .bar .title + .buttons {
 		  position: absolute;
+		  top: 5px;
+		  right: 5px;
+		  bottom: 5px;
+		}
+		.region-picker-wrapper .bar-header .button, .region-picker-wrapper .bar-header .title {
+		  font-size: 14px;
+		}
+		.region-picker-wrapper .bar-header .button-positive {
+		  color: #387ef5;
+		}
+		.bar {
+		  display: -webkit-box;
+		  display: -webkit-flex;
+		  display: -moz-box;
+		  display: -moz-flex;
+		  display: -ms-flexbox;
+		  display: flex;
+		  -webkit-transform: translate3d(0, 0, 0);
+		  transform: translate3d(0, 0, 0);
+		  -webkit-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		  position: absolute;
+		  right: 0;
+		  left: 0;
+		  z-index: 9;
+		  box-sizing: border-box;
+		  padding: 5px;
 		  width: 100%;
-		  display: block;
-		  z-index: 1100;
-		  background: white;
-		  opacity: 0.7;
-	}
-	.region-picker-wrapper .body .select-zone.top {
-	  	height: 85px;
-	}
-	.address-edit-panel .top {
-		  height: 50px;
-		  border-top: 1px solid rgba(105, 94, 107, 0.2);
-		  color: #4C4440;
-		  font-size: 13px;
-	}
-
-	.region-picker-wrapper .body .select-zone.middle {
-		  background: none;
-		  background-color: none;
-		  top: 85px;
-		  border-top: solid #d3d3d3 1px;
-		  border-bottom: solid #d3d3d3 1px;
-		  height: 26px;
-	}
-
-	.region-picker-wrapper .body .select-zone.bottom {
-	  height: 103px;
-	  top: 111px;
-	}
-	.region-picker-wrapper .body .region-picker {
-	  position: relative;
-	  width: 150px;
-	  float: left;
-	  height: 215px;
-	  overflow: hidden;
-	}
-
-  	.region-picker-wrapper .body .region-picker .UIPickerView-wrapper {
-		position: relative;
-		z-index: 999;
-		height: 215px;
-		padding: 0 11px;
-		overflow: hidden;
-	}
-
-	.region-picker-wrapper .body .region-picker .UIPickerView-wrapper .UIPickerView-deptch {
-	  	display: table-cell;
-	  	height: 100%;
-	  	padding-top: 86px;
-	  	background-color: #fcfcfc;
-	}
-
-	.region-picker-wrapper .body .region-picker li {
-	  	padding: 0 8px;
-	  	height: 26px;
-	  	overflow: hidden;
-	  	font-family: Helvetica,sans-serif;
-	}
-	#provincePicker{
-		width: 150px;
-	}
-	#cityPicker{
-		width: 150px;
-	}
+		  height: 44px;
+		  /* border-width: 0; */
+		  /* border-style: solid; */
+		  /* border-top: 1px solid transparent; */
+		  /* border-bottom: 1px solid #ddd; */
+		  /* background-color: white; */
+		  /* border-width: 1px will actually create 2 device pixels on retina; */
+		  background-size: 0;
+		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="UIPickerView.css">
 	<script type="text/javascript" src="UIPickerView.js"></script>
 </head>
 <body>
-	<div class="d"></div>
 	<button id="create-picker">create picker</button>
 	<button id="open-picker">open picker</button>
 	<button id="close-picker">close picker</button>
 	<button id="select-picker">select picker</button>
 	<button id="render-picker">render picker</button>
-	<!-- <div class="picker-wraper" id="picker-wraper">
-		<div class="qwe"><div id="pickerItem1"></div></div>
-		<div class="qwe"><div id="pickerItem2"></div></div>
-	</div> -->
-	<div class="region-picker-wrapper control" id="region-picker">
-	    <div class="bar bar-header">
-	        <button class="button button-clear" ng-click="closeRegion()">取消</button>
-	        <div class="h3 title">请选择地区</div>
-	        <button class="button button-clear button-positive" ng-click="doneRegion()">确定</button>
-	    </div>
+
+	<div class="region-picker-wrapper visibility-control" id="region-picker">
+	    <div class="header">
+        	<div class="bar bar-header">
+          		<button class="button button-clear" ng-click="closeRegion()">取消</button>
+          		<div class="h3 title">请选择地区</div>
+          		<button class="button button-clear button-positive" ng-click="doneRegion()">确定</button>
+        	</div>
+     	</div>
 	    <div class="body">
 	        <div class="select-zone top"></div>
 	        <div class="select-zone middle"></div>
@@ -260,7 +290,7 @@
 				id:'provincePicker',
 				constraintsId:'wower',
 				kUP:{
-					kUPCELLHEIGHT:26,
+					kUPCELLHEIGHT:22,
 					kUPFRICTION:0.003
 				},
 				valueChange:function(data){
@@ -272,7 +302,7 @@
 				id:'cityPicker',
 				constraintsId:'wower1',
 				kUP:{
-					kUPCELLHEIGHT:26,
+					kUPCELLHEIGHT:22,
 					kUPFRICTION:0.003
 				},
 				valueChange:function(data){
@@ -292,110 +322,5 @@
 			animaed.start();
 		});
     </script>
-
-
-	<!--<script type="text/javascript">
-		var pickerOpen = document.getElementById('open-picker');
-		var _pickerOpen = document.getElementById('_open-picker');
-		var pickerClose = document.getElementById('close-picker');
-		var pickerSelect = document.getElementById('select-picker');
-		var pickerRender = document.getElementById('render-picker');
-		var up,
-			picker2;
-		var data = [
-			{
-				"key":"index",
-				"value":"index"
-			},
-			{
-				"key":"iOS",
-				"value":"iOS"
-			},
-			{
-				"key":"i want",
-				"value":"i want"
-			},
-			{
-				"key":"back hometown",
-				"value":"back hometown"
-			},
-			{
-				"key":"github",
-				"value":"github"
-			},
-			{
-				"key":"icepy",
-				"value":"icepy"
-			},
-			{
-				"key":"wow",
-				"value":"wow"
-			}
-		];
-		
-		var keyUPP = {
-			valueChange:function(userInfo){
-				console.log(userInfo);
-			}
-		}
-
-		UPNotificationCenter.addObserver(keyUPP,'valueChange','UPK');
-
-		pickerOpen.addEventListener('click',function(e){
-			up = UIPickerView.createPickerView({
-				dataSource:data,
-				id:'pickerItem1',
-				constraintsId:'wower',
-				kUP:{
-					kUPCELLHEIGHT:44,
-					kUPFRICTION:0.003
-				},
-				valueChange:function(data){
-					console.log(data);
-					UPNotificationCenter.postNotificationName('UPK',data);
-				}
-			});
-
-			picker2 = UIPickerView.createPickerView({
-				dataSource:data,
-				id:'pickerItem2',
-				constraintsId:'wower2',
-				kUP:{
-					kUPCELLHEIGHT:44,
-					kUPFRICTION:0.003
-				},
-				valueChange:function(data){
-					UPNotificationCenter.postNotificationName('UPK',data);
-				}
-			});
-			
-			animd = CAAnimation.createAnimation({id:'picker-wraper'});
-			animd.start();
-			console.log(animd);
-		},false);
-
-		_pickerOpen.addEventListener('click',function(){
-			animd.start();
-		},false);
-
-		pickerClose.addEventListener('click',function(){
-			animd.finish();
-			console.log(animd);
-		});
-		
-		pickerRender.addEventListener('click',function(){
-			up.UPRender([{
-				"key":"wow",
-				"value":"wow"
-			}]);
-		},false);
-
-		pickerSelect.addEventListener('click',function(){
-			up.UPSelectRowIndexPath(2).UPThen(function(indexPath,data){
-				console.log(indexPath);
-				console.log(data);
-			});
-		});
-	</script>-->
 </body>
 </html>

@@ -11,6 +11,12 @@
 ![](https://img.shields.io/travis/joyent/node/v0.6.svg)
 ![](https://img.shields.io/github/license/mashape/apistatus.svg)
 
+##Requirements
+
+- iOS 7.0+
+
+- android 4.1+
+
 ##Use it
 
 需要实例化**UIPickerView**类，UIPickerView类也提供了一个简单的类方法，createPickerView来快速创建一个UIPickerView。

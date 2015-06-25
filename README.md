@@ -76,5 +76,5 @@ UIPickerView的图片素材是在这里下载的--[http://cubiq.org/](http://cub
 
 ##效果图
 
-![iOS 8.3风格的UIPickerView](http://7qncz5.com1.z0.glb.clouddn.com/js/UIPickerView-v0.0.1.png)
+![iOS 8.3风格的UIPickerView](UIPickerView-v0.0.1.png)
 

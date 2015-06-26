@@ -27,9 +27,9 @@
 	<div class="region-picker-wrapper visibility-control" id="region-picker">
 	    <div class="header">
         	<div class="bar bar-header">
-          		<button class="button button-clear">Close</button>
+          		<button class="button button-clear" id="selectClose">Close</button>
           		<div class="h3 title">Select</div>
-          		<button class="button button-clear button-positive">Yes</button>
+          		<button class="button button-clear button-positive" id="selectYes">Yes</button>
         	</div>
      	</div>
 	    <div class="body">
@@ -54,6 +54,9 @@
 		var pickerSelect = document.getElementById('select-picker');
 		var pickerRender = document.getElementById('render-picker');
 		var up,up1,up2,animaed;
+
+		var selectYes = document.getElementById('selectYes');
+		var selectClose = document.getElementById('selectClose');
 		var data = [
 			{
 				"key":"Swift",
@@ -80,6 +83,15 @@
 				"value":"icepy"
 			}
 		];
+
+		selectYes.addEventListener('click',function(){
+			animaed.finish();
+		})
+
+		selectClose.addEventListener('click',function(){
+			animaed.finish();
+		})
+
 		pickerCreate.addEventListener('click',function(){
 			up = UIPickerView.createPickerView({
 				dataSource:data,
@@ -91,6 +103,7 @@
 				},
 				valueChange:function(data){
 					console.log(data);
+					up1Data = data;
 				}
 			});
 			console.log(up);
@@ -104,6 +117,7 @@
 				},
 				valueChange:function(data){
 					console.log(data);
+					up2Data = data;
 				}
 			});
 			animaed = CAAnimation.createAnimation({id:'region-picker'});

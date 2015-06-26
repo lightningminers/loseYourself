@@ -17,6 +17,15 @@
 
 - android 4.1+
 
+##实用之前请阅读(used befor reading)
+
+这个插件的设计原则是，通过多个小的UIPickerView组装成一个大的UIPickerView，它只负责UIPickerView的核心操作部分与动画，这样设计的好处，是可以很灵活的进行组装，适用于多个不同的场景。
+
+- 这个插件由UIPickerView和CAAnimation两个类组成
+- UIPickerView负责与iOS操作一致的核心部分
+- CAAnimation则只负责容器动画的显示与隐藏
+- Demo例子中如果先点击open picker报错的原因是，你还没有先创建一个UIPickerView的实例
+
 ##Use it
 
 需要实例化**UIPickerView**类，UIPickerView类也提供了一个简单的类方法，createPickerView来快速创建一个UIPickerView。

@@ -17,7 +17,7 @@
 
 - android 4.1+
 
-##实用之前请阅读(used befor reading)
+##使用之前请阅读(used befor reading)
 
 这个插件的设计原则是，通过多个小的UIPickerView组装成一个大的UIPickerView，它只负责UIPickerView的核心操作部分与动画，这样设计的好处，是可以很灵活的进行组装，适用于多个不同的场景。
 

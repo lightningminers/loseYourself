@@ -84,8 +84,30 @@
 			}
 		];
 
+		var up1Data,up2Data;
+
 		selectYes.addEventListener('click',function(){
 			animaed.finish();
+			console.log(up1Data);
+			console.log(up2Data);
+
+			//if up1Data or up2Data is empty ,so use UPSelectRowIndexPath and UPThen
+
+			if (!up1Data&& up) {
+				up.UPSelectRowIndexPath(1).UPThen(function(indexPath,value){
+					console.log(value);
+				})
+			};
+
+			// if (!up2Data&& up1) {
+			// 	up1.UPSelectRowIndexPath(1).UPThen(function(indexPath,value){
+			// 		console.log(value);
+			// 	})
+			// };
+
+			//maybe use your datasource is relatively good
+			//data[0]  //你的数据默认选择第一行
+
 		})
 
 		selectClose.addEventListener('click',function(){
@@ -102,7 +124,6 @@
 					kUPFRICTION:0.003
 				},
 				valueChange:function(data){
-					console.log(data);
 					up1Data = data;
 				}
 			});

@@ -1,0 +1,27 @@
+{
+  "name": "loseyourself",
+  "version": "1.0.0",
+  "description": "UIPickerView HTML5实现，仿造iOS的UIPickerView",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/icepy/loseYourself.git"
+  },
+  "keywords": [
+    "picker",
+    "UIPicker",
+    "UIPickerView"
+  ],
+  "author": "icepy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/icepy/loseYourself/issues"
+  },
+  "homepage": "https://github.com/icepy/loseYourself#readme",
+  "devDependencies": {
+    "webpack": "^1.12.14"
+  }
+}

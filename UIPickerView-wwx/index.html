@@ -1,159 +1,157 @@
 <html>
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" id="iphone-viewport" content="minimum-scale=1.0, maximum-scale=1.0, width=device-width" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<style type="text/css">
-		body{
-			width: 100%;
-			background-image: url(mage-gnome01-large.jpg);
-			background-position: inherit;
-		}
-		ul,li,div{
-			margin: 0px;
-			padding: 0px;
-		}
-	</style>
-	<link rel="stylesheet" type="text/css" href="UIPickerView.css">
-	<script type="text/javascript" src="../src/UIPickerView.js"></script>
-	<script type="text/javascript" src="../src/CAAnimation.js"></script>;
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" id="iphone-viewport" content="minimum-scale=1.0, maximum-scale=1.0, width=device-width" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <style type="text/css">
+  body {
+    width: 100%;
+    background-image: url(mage-gnome01-large.jpg);
+    background-position: inherit;
+  }
+  
+  ul,
+  li,
+  div {
+    margin: 0px;
+    padding: 0px;
+  }
+  </style>
+  <link rel="stylesheet" type="text/css" href="UIPickerView.css">
+  <script type="text/javascript" src="../src/UIPickerView.js"></script>
+  <script type="text/javascript" src="../src/CAAnimation.js"></script>;
 </head>
+
 <body>
-	<button id="create-picker">create picker</button>
-	<button id="open-picker">open picker</button>
-	<button id="close-picker">close picker</button>
-	<button id="select-picker">select picker</button>
-	<button id="render-picker">render picker</button>
-
-	<div class="region-picker-wrapper visibility-control" id="region-picker">
-	    <div class="header">
-        	<div class="bar bar-header">
-          		<button class="button button-clear" id="selectClose">Close</button>
-          		<div class="h3 title">Select</div>
-          		<button class="button button-clear button-positive" id="selectYes">Yes</button>
-        	</div>
-     	</div>
-	    <div class="body">
-	        <div class="select-zone top"></div>
-	        <div class="select-zone middle"></div>
-	        <div class="select-zone bottom"></div>
-	        <div class="region-picker" >
-	          	<div id="provincePicker"></div>
-	        </div>
-	        <div class="region-picker">
-	          	<div id="cityPicker"></div>
-	        </div>
-	        <div class="region-picker">
-	          	<div id="areaPicker"></div>
-	        </div>
-	    </div>
+  <button id="create-picker">create picker</button>
+  <button id="open-picker">open picker</button>
+  <button id="close-picker">close picker</button>
+  <button id="select-picker">select picker</button>
+  <button id="render-picker">render picker</button>
+  <div class="region-picker-wrapper visibility-control" id="region-picker">
+    <div class="header">
+      <div class="bar bar-header">
+        <button class="button button-clear" id="selectClose">Close</button>
+        <div class="h3 title">Select</div>
+        <button class="button button-clear button-positive" id="selectYes">Yes</button>
+      </div>
     </div>
-    <script type="text/javascript">
-    	var pickerCreate = document.getElementById('create-picker');
-		var pickerOpen = document.getElementById('open-picker');
-		var pickerClose = document.getElementById('close-picker');
-		var pickerSelect = document.getElementById('select-picker');
-		var pickerRender = document.getElementById('render-picker');
-		var up,up1,up2,animaed;
+    <div class="body">
+      <div class="select-zone top"></div>
+      <div class="select-zone middle"></div>
+      <div class="select-zone bottom"></div>
+      <div class="region-picker">
+        <div id="provincePicker"></div>
+      </div>
+      <div class="region-picker">
+        <div id="cityPicker"></div>
+      </div>
+      <div class="region-picker">
+        <div id="areaPicker"></div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  var pickerCreate = document.getElementById('create-picker');
+  var pickerOpen = document.getElementById('open-picker');
+  var pickerClose = document.getElementById('close-picker');
+  var pickerSelect = document.getElementById('select-picker');
+  var pickerRender = document.getElementById('render-picker');
+  var up, up1, up2, animaed;
 
-		var selectYes = document.getElementById('selectYes');
-		var selectClose = document.getElementById('selectClose');
-		var data = [
-			{
-				"key":"Swift",
-				"value":"Swift"
-			},
-			{
-				"key":"iOS",
-				"value":"iOS"
-			},
-			{
-				"key":"Objective-C",
-				"value":"Objective-C"
-			},
-			{
-				"key":"back homeTown",
-				"value":"back homeTown"
-			},
-			{
-				"key":"github",
-				"value":"github"
-			},
-			{
-				"key":"icepy",
-				"value":"icepy"
-			}
-		];
+  var selectYes = document.getElementById('selectYes');
+  var selectClose = document.getElementById('selectClose');
+  var data = [{
+    "key": "Swift",
+    "value": "Swift"
+  }, {
+    "key": "iOS",
+    "value": "iOS"
+  }, {
+    "key": "Objective-C",
+    "value": "Objective-C"
+  }, {
+    "key": "back homeTown",
+    "value": "back homeTown"
+  }, {
+    "key": "github",
+    "value": "github"
+  }, {
+    "key": "icepy",
+    "value": "icepy"
+  }];
 
-		var up1Data,up2Data;
+  var up1Data = data[0], up2Data = data[0];
 
-		selectYes.addEventListener('click',function(){
-			animaed.finish();
-			console.log(up1Data);
-			console.log(up2Data);
+  selectYes.addEventListener('click', function() {
+    animaed.finish();
+    console.log(up1Data);
+    console.log(up2Data);
 
-			//if up1Data or up2Data is empty ,so use UPSelectRowIndexPath and UPThen
+    //if up1Data or up2Data is empty ,so use UPSelectRowIndexPath and UPThen
 
-			if (!up1Data&& up) {
-				up.UPSelectRowIndexPath(1).UPThen(function(indexPath,value){
-					console.log(value);
-				})
-			};
+    if (!up1Data && up) {
+      up.UPSelectRowIndexPath(1).UPThen(function(indexPath, value) {
+        console.log(value);
+      })
+    };
 
-			// if (!up2Data&& up1) {
-			// 	up1.UPSelectRowIndexPath(1).UPThen(function(indexPath,value){
-			// 		console.log(value);
-			// 	})
-			// };
+    // if (!up2Data&& up1) {
+    // 	up1.UPSelectRowIndexPath(1).UPThen(function(indexPath,value){
+    // 		console.log(value);
+    // 	})
+    // };
 
-			//maybe use your datasource is relatively good
-			//data[0]  //你的数据默认选择第一行
+    //maybe use your datasource is relatively good
+    //data[0]  //你的数据默认选择第一行
 
-		})
+  })
 
-		selectClose.addEventListener('click',function(){
-			animaed.finish();
-		})
+  selectClose.addEventListener('click', function() {
+    animaed.finish();
+  })
 
-		pickerCreate.addEventListener('click',function(){
-			up = UIPickerView.createPickerView({
-				dataSource:data,
-				id:'provincePicker',
-				constraintsId:'wower',
-				kUP:{
-					kUPCELLHEIGHT:26,
-					kUPFRICTION:0.003
-				},
-				valueChange:function(data){
-					up1Data = data;
-				}
-			});
-			console.log(up);
-			up1 = UIPickerView.createPickerView({
-				dataSource:data,
-				id:'cityPicker',
-				constraintsId:'wower1',
-				kUP:{
-					kUPCELLHEIGHT:26,
-					kUPFRICTION:0.003
-				},
-				valueChange:function(data){
-					console.log(data);
-					up2Data = data;
-				}
-			});
-			animaed = CAAnimation.createAnimation({id:'region-picker'});
-			animaed.start();
-			console.log(animaed);
-		});
+  pickerCreate.addEventListener('click', function() {
+    up = UIPickerView.createPickerView({
+      dataSource: data,
+      id: 'provincePicker',
+      constraintsId: 'wower',
+      kUP: {
+        kUPCELLHEIGHT: 26,
+        kUPFRICTION: 0.003
+      },
+      valueChange: function(data) {
+        up1Data = data;
+      }
+    });
+    up1 = UIPickerView.createPickerView({
+      dataSource: data,
+      id: 'cityPicker',
+      constraintsId: 'wower1',
+      kUP: {
+        kUPCELLHEIGHT: 26,
+        kUPFRICTION: 0.003
+      },
+      valueChange: function(data) {
+        console.log(data);
+        up2Data = data;
+      }
+    });
+    animaed = CAAnimation.createAnimation({
+      id: 'region-picker'
+    });
+    animaed.start();
+  });
 
-		pickerClose.addEventListener('click',function(){
-			animaed.finish();
-		});
+  pickerClose.addEventListener('click', function() {
+    animaed.finish();
+  });
 
-		pickerOpen.addEventListener('click',function(){
-			animaed.start();
-		});
-    </script>
+  pickerOpen.addEventListener('click', function() {
+    animaed.start();
+  });
+  </script>
 </body>
+
 </html>

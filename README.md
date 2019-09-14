@@ -4,7 +4,6 @@
 
 >Tag v1.0
 
-![](https://img.shields.io/travis/joyent/node/v0.6.svg)
 ![](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 ## Requirements
